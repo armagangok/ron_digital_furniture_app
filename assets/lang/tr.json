@@ -1,0 +1,29 @@
+{
+  "appTitle" : "Başlık" ,
+  "myProfile": "Profilim",
+
+  "topStrioes": "En İyiler",
+  "aroundTheWorld": "Dünya Çapında",
+  "business":"İş Dünyası",
+  "health":"Sağlık",
+  "covid19":"Kovid 19",
+  "entertainment":"Eğlence",
+  "sports":"Spor",
+  "discussion":"Tartışma",
+  "notification":"Bildirim",
+  "newsFeedSettings":"Haber Ayarları",
+
+
+  "subscribeToPremium": "Premiuma Üye Ol",
+  "upgrade" : "Yükselt",
+
+  "topStoriesForYou":"Senin için en iyi hikayeler!",
+  "creatorsYouShouldFollow": "Takip etmeni önerdiklerimiz",
+  "showMore":"Daha Fazla Göster",
+  "subscribeToOurNewsletter":"Haber postalarımıza abone ol!",
+  "subscribe":"Abone ol",
+  "addYourComment":"Yorumunu ekle",
+  "enterYourComment":"Yorumunu yaz..",
+  "postComment":"Yorumu Paylaş",
+  "viewAllComments":"Tüm Yorumları Göster"
+}

@@ -1,0 +1,29 @@
+{
+  "appTitle" : "title" ,
+  "myProfile": "My Profile",
+
+  "topStrioes": "Top Stories",
+  "aroundTheWorld": "Around the World",
+  "business":"Business",
+  "health":"Health",
+  "covid19":"Covid 19",
+  "entertainment":"Entertainment",
+  "sports":"Sports",
+  "discussion":"Discussion",
+  "notification":"Notification",
+  "newsFeedSettings":"News Feed Settings",
+
+
+  "subscribeToPremium": "Subscribe To Premium",
+  "upgrade" : "Upgrade",
+
+  "topStoriesForYou":"Top Stories for you",
+  "creatorsYouShouldFollow": "Creators you should follow",
+  "showMore":"Show More",
+  "subscribeToOurNewsletter":"Subscribe to our newsletter",
+  "subscribe":"Subscribe",
+  "addYourComment":"Add your comment",
+  "enterYourComment":"Enter your comment here..",
+  "postComment":"Post Comment",
+  "viewAllComments":"View All Comments"  
+}
