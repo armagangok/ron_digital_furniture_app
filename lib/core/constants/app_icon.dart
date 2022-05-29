@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 class AppIcon {
   static AppIcon? _instance;
   static AppIcon get instance {
@@ -287,6 +289,12 @@ class AppIcon {
   // Logout Icon
   Icon iconLogout({double? size, Color? color}) => Icon(
         Icons.exit_to_app,
+        size: size,
+        color: color,
+      );
+
+  Icon iconShareiOS({double? size, Color? color}) => Icon(
+        CupertinoIcons.share,
         size: size,
         color: color,
       );

@@ -1,38 +1,54 @@
-import 'package:car_app/core/init/view/base/base_state.dart';
+import 'package:car_app/core/init/view/base/base_stateless.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class GlobalAppBar extends BaseState {
+class GlobalAppBar extends BaseStateless with PreferredSizeWidget {
+  GlobalAppBar({Key? key}) : super();
+
   @override
   Widget build(BuildContext context) {
+    final double heigth = dynamicHeight(context: context, val: 1);
+    // final double width = dynamicWidth(context: context, val: 1);
     return AppBar(
-      leadingWidth: dynamicHeight(0.15),
-      leading: Builder(
-        builder: (BuildContext context) => menuButtonAndAppIcon(context),
-      ),
+      leading: button(heigth),
       actions: [
-        searchButton(),
-        myProfileButton(),
+        searchButton(heigth),
+
+        dotsButton(heigth),
         // myProfileText(),
       ],
     );
   }
 
+  Widget button(heigth) {
+    return CircleAvatarWidget(
+      icon: IconButton(
+        onPressed: () {},
+        icon: getIcon(
+          heigth,
+          CupertinoIcons.arrow_up_left_circle,
+        ),
+      ),
+    );
+  }
+
   //
   //
 
-  IconButton menuButtonAndAppIcon(BuildContext context) {
-    return IconButton(
-      icon: Row(
-        children: const [
-          Icon(Icons.menu),
-          // appIcon(),
-        ],
-      ),
-      onPressed: () => Scaffold.of(context).openDrawer(),
-      tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-    );
-  }
+  // IconButton menuButtonAndAppIcon(BuildContext context) {
+  //   return IconButton(
+  //     icon: Row(
+  //       children: const [
+  //         Icon(
+  //           Icons.menu,
+  //           color: Colors.black,
+  //         ),
+  //       ],
+  //     ),
+  //     onPressed: () => Scaffold.of(context).openDrawer(),
+  //     tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+  //   );
+  // }
 
   //
   //
@@ -47,22 +63,49 @@ class GlobalAppBar extends BaseState {
   //
   //
 
-  IconButton searchButton() {
-    return IconButton(
-      onPressed: () {},
-      icon: const Icon(Icons.search),
+  Widget searchButton(heigth) {
+    return CircleAvatarWidget(
+      icon: Center(
+        child: IconButton(
+          onPressed: () {},
+          icon: getIcon(heigth, CupertinoIcons.search),
+        ),
+      ),
+    );
+  }
+
+  Icon getIcon(heigth, iconThemeData) {
+    return Icon(
+      iconThemeData,
+      color: Colors.black,
+      size: heigth * 0.044,
     );
   }
 
   //
   //
 
-  IconButton myProfileButton() {
-    return IconButton(
-      onPressed: () {},
-      icon: const Icon(CupertinoIcons.person),
+  Widget dotsButton(width) {
+    return SizedBox(
+      width: width * 0.06,
+      child: CircleAvatarWidget(
+        icon: IconButton(
+          onPressed: () {},
+          icon: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [
+              DotWidget(),
+              DotWidget(),
+              DotWidget(),
+            ],
+          ),
+        ),
+      ),
     );
   }
+
+  @override
+  Size get preferredSize => const Size(double.infinity, 76);
 
   //
   //
@@ -71,6 +114,35 @@ class GlobalAppBar extends BaseState {
 
   //
   //
+}
 
-  Size get preferredSize => const Size.fromHeight(56);
+class DotWidget extends StatelessWidget {
+  const DotWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const CircleAvatar(
+      radius: 3,
+      backgroundColor: Colors.black,
+    );
+  }
+}
+
+class CircleAvatarWidget extends BaseStateless {
+  final Widget icon;
+
+  CircleAvatarWidget({
+    required this.icon,
+  }) : super();
+
+  @override
+  Widget build(BuildContext context) {
+    return CircleAvatar(
+      radius: dynamicHeight(context: context, val: 0.03),
+      backgroundColor: Colors.white,
+      child: icon,
+    );
+  }
 }

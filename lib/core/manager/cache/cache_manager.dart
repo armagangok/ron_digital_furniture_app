@@ -1,20 +1,21 @@
 import 'package:get_storage/get_storage.dart';
-enum CacheManagerKey { TOKEN }
+
+enum CacheManagerKey { token }
 
 class CacheManager {
   GetStorage storage = GetStorage();
 
   Future<bool> saveToken(String token) async {
-    await storage.write(CacheManagerKey.TOKEN.toString(), token);
+    await storage.write(CacheManagerKey.token.toString(), token);
     return true;
   }
 
   String getToken() {
-    String token = storage.read(CacheManagerKey.TOKEN.toString());
+    String token = storage.read(CacheManagerKey.token.toString());
     return token;
   }
 
   Future<void> removeToken() async {
-    await storage.remove(CacheManagerKey.TOKEN.toString());
+    await storage.remove(CacheManagerKey.token.toString());
   }
 }
