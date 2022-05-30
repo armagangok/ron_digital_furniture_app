@@ -17,8 +17,9 @@ class SampleProductWidget extends BaseStateless {
     final IndicatorController indicator = Get.put(IndicatorController());
 
     return Obx(
-      () => Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+      () => Stack(
+        alignment: Alignment.bottomCenter,
+        // mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           _buildCarousel(context, indicator),
           _buildSliderIndicator(indicator, width),
@@ -33,7 +34,11 @@ class SampleProductWidget extends BaseStateless {
   Widget _buildCarousel(context, indicator) {
     return CarouselSlider.builder(
       itemCount: getProducts().length,
-      itemBuilder: (context, index, realIndex) => getProducts()[index],
+      itemBuilder: (context, index, realIndex) => SizedBox(
+        height:400,
+        width: 400,
+        child: getProducts()[index],
+      ),
       options: CarouselOptions(
         autoPlay: true,
         viewportFraction: 1,
@@ -46,15 +51,12 @@ class SampleProductWidget extends BaseStateless {
   //
   //
 
-  
-
-
   Widget _buildSliderIndicator(IndicatorController indicator, width) {
     return AnimatedSmoothIndicator(
       activeIndex: indicator.activeIndex.value,
       count: getProducts().length,
       effect: const SlideEffect(
-        activeDotColor: Colors.red,
+        activeDotColor: Colors.white,
         dotHeight: 10,
         dotWidth: 10,
       ),
@@ -66,11 +68,9 @@ class SampleProductWidget extends BaseStateless {
 
   List<Widget> getProducts() {
     return [
-      SizedBox(
-        child: Image.asset(
-          "assets/img/img.png",
-          fit: BoxFit.fill,
-        ),
+      Image.asset(
+        "assets/img/img.png",
+        fit: BoxFit.fill,
       ),
       Image.asset(
         "assets/img/img.png",
@@ -83,3 +83,6 @@ class SampleProductWidget extends BaseStateless {
     ];
   }
 }
+
+
+ 

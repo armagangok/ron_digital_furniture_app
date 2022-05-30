@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 
 import '../../../core/init/view/base/base_stateless.dart';
 import '../../../feature/components/global_appbar.dart';
@@ -16,8 +17,9 @@ class HomeView extends BaseStateless {
       body: ListView.separated(
         itemCount: getWidgets(context, h).length,
         itemBuilder: (context, index) => getWidgets(context, h)[index],
-        separatorBuilder: (context,index) => SizedBox(height: h*0.02,),
-        
+        separatorBuilder: (context, index) => SizedBox(
+          height: h * 0.02,
+        ),
       ),
     );
   }
@@ -25,6 +27,7 @@ class HomeView extends BaseStateless {
   List<Widget> getWidgets(context, h) {
     List<Widget> b = [
       SampleProductWidget(),
+      
       Text(
         "Products",
         style: currentTextTheme(context).headline4,
@@ -68,9 +71,7 @@ class ProductWidget extends BaseStateless {
               fit: BoxFit.fill,
             ),
             // border: Border.none,
-            borderRadius: BorderRadius.all(
-              Radius.circular(20),
-            ),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
           height: h * 0.2,
           width: h * 0.2,
