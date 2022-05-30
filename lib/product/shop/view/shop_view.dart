@@ -26,7 +26,7 @@ class ShopView extends BaseStateless {
               color: Color.fromARGB(255, 118, 118, 118),
               thickness: 0.5,
             ),
-            CategoriesListViewBuilder()
+            CategoriesListViewBuilder(),
           ],
         ),
       ),
@@ -40,10 +40,12 @@ class CategoriesListViewBuilder extends BaseStateless {
   @override
   Widget build(BuildContext context) {
     final double h = dynamicHeight(context: context, val: 1);
+    final double w = dynamicWidth(context: context, val: 1);
     return SizedBox(
-      height: h * 0.75,
+      height: h * 0.6,
       child: ListView.separated(
-        separatorBuilder: (context, index) => SizedBox(height: h * 0.03),
+        physics: const ClampingScrollPhysics(),
+        separatorBuilder: (context, index) => SizedBox(width: w * 0.01),
         itemCount: list.length,
         itemBuilder: (context, index) {
           return GestureDetector(
@@ -69,6 +71,7 @@ class CategoryCardWidget extends BaseStateless {
   @override
   Widget build(BuildContext context) {
     final double h = dynamicHeight(context: context, val: 1);
+    final double w = dynamicWidth(context: context, val: 1);
     return Column(
       children: [
         Card(
@@ -77,8 +80,8 @@ class CategoryCardWidget extends BaseStateless {
           ),
           color: Colors.amber,
           child: SizedBox(
-            height: h * 0.23,
-            width: double.infinity,
+            height: h * 0.30,
+            width: w,
             child: Image.asset(
               categoryModel.imageUrl,
               fit: BoxFit.fill,

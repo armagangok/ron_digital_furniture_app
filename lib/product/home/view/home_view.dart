@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 
 import '../../../core/init/view/base/base_stateless.dart';
 import '../../../feature/components/global_appbar.dart';
 import '../../../feature/components/sample_product_widget.dart';
+import '../../shop/view/shop_view.dart';
 
 class HomeView extends BaseStateless {
   HomeView({Key? key}) : super();
@@ -15,11 +15,10 @@ class HomeView extends BaseStateless {
       appBar: GlobalAppBar(),
       extendBodyBehindAppBar: true,
       body: ListView.separated(
+        physics: const ClampingScrollPhysics(),
         itemCount: getWidgets(context, h).length,
         itemBuilder: (context, index) => getWidgets(context, h)[index],
-        separatorBuilder: (context, index) => SizedBox(
-          height: h * 0.02,
-        ),
+        separatorBuilder: (context, index) => SizedBox(height: h * 0.02),
       ),
     );
   }
@@ -27,13 +26,13 @@ class HomeView extends BaseStateless {
   List<Widget> getWidgets(context, h) {
     List<Widget> b = [
       SampleProductWidget(),
-      
+      SizedBox(height: h * 0.02),
       Text(
-        "Products",
+        "Top Products",
         style: currentTextTheme(context).headline4,
       ),
       SizedBox(
-        height: h * 0.5,
+        height: h * 0.28,
         child: ListView.separated(
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) => a[index],
@@ -41,6 +40,12 @@ class HomeView extends BaseStateless {
           itemCount: a.length,
         ),
       ),
+      SizedBox(height: h * 0.02),
+      Text(
+        "Categories",
+        style: currentTextTheme(context).headline4,
+      ),
+      CategoriesListViewBuilder(),
     ];
     return b;
   }

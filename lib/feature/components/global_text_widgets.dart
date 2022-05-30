@@ -155,6 +155,7 @@
 //       text,
 //       style: context.theme.textTheme.bodyText1!.copyWith(
 //         color: color,
+        
 //       ),
 //       maxLines: maxLines,
 //       overflow: isOverFlowed ? TextOverflow.ellipsis : null,

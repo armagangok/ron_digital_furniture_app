@@ -11,18 +11,31 @@ class SampleProductWidget extends BaseStateless {
 
   @override
   Widget build(BuildContext context) {
-    final double heigth = dynamicHeight(context: context, val: 1);
-    final double width = dynamicWidth(context: context, val: 1);
+    final double h = dynamicHeight(context: context, val: 1);
+    final double w = dynamicWidth(context: context, val: 1);
 
     final IndicatorController indicator = Get.put(IndicatorController());
 
     return Obx(
       () => Stack(
         alignment: Alignment.bottomCenter,
-        // mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildCarousel(context, indicator),
-          _buildSliderIndicator(indicator, width),
+          CarouselSlider.builder(
+            itemCount: getProducts().length,
+            itemBuilder: (context, index, realIndex) {
+              return SizedBox(
+                width: double.infinity,
+                child: getProducts()[index],
+              );
+            },
+            options: CarouselOptions(
+              aspectRatio: 1,
+              autoPlay: true,
+              viewportFraction: 1,
+              onPageChanged: (index, reason) => indicator.changeIndex(index),
+            ),
+          ),
+          _buildSliderIndicator(indicator, w),
         ],
       ),
     );
@@ -31,27 +44,7 @@ class SampleProductWidget extends BaseStateless {
   //
   //
 
-  Widget _buildCarousel(context, indicator) {
-    return CarouselSlider.builder(
-      itemCount: getProducts().length,
-      itemBuilder: (context, index, realIndex) => SizedBox(
-        height:400,
-        width: 400,
-        child: getProducts()[index],
-      ),
-      options: CarouselOptions(
-        autoPlay: true,
-        viewportFraction: 1,
-        enlargeStrategy: CenterPageEnlargeStrategy.height,
-        onPageChanged: (index, reason) => indicator.changeIndex(index),
-      ),
-    );
-  }
-
-  //
-  //
-
-  Widget _buildSliderIndicator(IndicatorController indicator, width) {
+  Widget _buildSliderIndicator(indicator, width) {
     return AnimatedSmoothIndicator(
       activeIndex: indicator.activeIndex.value,
       count: getProducts().length,
@@ -83,6 +76,3 @@ class SampleProductWidget extends BaseStateless {
     ];
   }
 }
-
-
- 
