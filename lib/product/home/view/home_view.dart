@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../core/init/view/base/base_stateless.dart';
 import '../../../feature/components/global_appbar.dart';
 import '../../../feature/components/sample_product_widget.dart';
+import '../../product/view/product_details_view.dart';
 import '../../shop/view/shop_view.dart';
+import '../view_model/category_viewmodel.dart';
 
 class HomeView extends BaseStateless {
   HomeView({Key? key}) : super();
@@ -12,7 +15,6 @@ class HomeView extends BaseStateless {
   Widget build(BuildContext context) {
     final double h = dynamicHeight(context: context, val: 1);
     return Scaffold(
-      appBar: GlobalAppBar(),
       extendBodyBehindAppBar: true,
       body: ListView.separated(
         physics: const ClampingScrollPhysics(),
@@ -24,8 +26,14 @@ class HomeView extends BaseStateless {
   }
 
   List<Widget> getWidgets(context, h) {
+    CategoryViewmodel categoryViewmodel = CategoryViewmodel();
     List<Widget> b = [
-      SampleProductWidget(),
+      Stack(
+        children: [
+          SampleProductWidget(),
+          GlobalAppBar(),
+        ],
+      ),
       SizedBox(height: h * 0.02),
       Text(
         "Top Products",
@@ -67,29 +75,32 @@ class ProductWidget extends BaseStateless {
   Widget build(BuildContext context) {
     final double h = dynamicHeight(context: context, val: 1);
     // final double w = dynamicWidth(context: context, val: 1);
-    return Column(
-      children: [
-        Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: ExactAssetImage("assets/img/img.png"),
-              fit: BoxFit.fill,
+    return GestureDetector(
+      onTap: () => Get.to(() => ProductDetailsView()),
+      child: Column(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: ExactAssetImage("assets/img/img.png"),
+                fit: BoxFit.fill,
+              ),
+              // border: Border.none,
+              borderRadius: BorderRadius.all(Radius.circular(20)),
             ),
-            // border: Border.none,
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+            height: h * 0.2,
+            width: h * 0.2,
           ),
-          height: h * 0.2,
-          width: h * 0.2,
-        ),
-        Text(
-          productName,
-          style: currentTheme(context).textTheme.titleLarge,
-        ),
-        Text(
-          itemNumber,
-          // style: currentTheme(context).textTheme.headline1,
-        ),
-      ],
+          Text(
+            productName,
+            style: currentTheme(context).textTheme.titleLarge,
+          ),
+          Text(
+            itemNumber,
+            // style: currentTheme(context).textTheme.headline1,
+          ),
+        ],
+      ),
     );
   }
 }

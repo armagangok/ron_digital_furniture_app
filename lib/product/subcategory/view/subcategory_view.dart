@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/init/view/base/base_stateless.dart';
 import '../../../feature/components/global_appbar.dart';
+import '../../home/service/category_service.dart';
 import '../../shop/view/shop_view.dart';
 import '../../home/view/home_view.dart';
 
@@ -17,6 +18,7 @@ class SubcategoryView extends BaseStateless {
     return Scaffold(
       appBar: GlobalAppBar(),
       body: GridView.builder(
+        
         padding: const EdgeInsets.all(2),
         itemCount: 6,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

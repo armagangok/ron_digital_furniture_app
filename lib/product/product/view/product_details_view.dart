@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/instance_manager.dart';
 import 'package:star_rating/star_rating.dart';
@@ -21,7 +22,7 @@ class ProductDetailsView extends BaseStateless {
     final double w = dynamicWidth(context: context, val: 1);
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: GlobalAppBar(),
+      appBar: ProductDetailAppbar(),
       body: ListView(
         physics: const ClampingScrollPhysics(),
         children: [
@@ -129,18 +130,18 @@ class ProductDetailsView extends BaseStateless {
   }
 }
 
-//
-//
+///
+///
 
-class GlobalAppBar extends BaseStateless with PreferredSizeWidget {
-  GlobalAppBar({Key? key}) : super();
+class ProductDetailAppbar extends BaseStateless with PreferredSizeWidget {
+  ProductDetailAppbar({Key? key}) : super();
 
   @override
   Widget build(BuildContext context) {
     final double heigth = dynamicHeight(context: context, val: 1);
     // final double width = dynamicWidth(context: context, val: 1);
     return AppBar(
-      leading: button(heigth),
+      leading: getBackButton(heigth),
       actions: [
         searchButton(heigth),
 
@@ -151,12 +152,11 @@ class GlobalAppBar extends BaseStateless with PreferredSizeWidget {
   }
 
   //
-  //
 
-  Widget button(heigth) {
+  Widget getBackButton(heigth) {
     return CircleAvatarWidget(
       icon: IconButton(
-        onPressed: () {},
+        onPressed: () => Get.back(),
         icon: getIcon(
           heigth,
           CupertinoIcons.xmark,
@@ -165,7 +165,6 @@ class GlobalAppBar extends BaseStateless with PreferredSizeWidget {
     );
   }
 
-//
 //
 
   Widget searchButton(heigth) {
@@ -179,6 +178,8 @@ class GlobalAppBar extends BaseStateless with PreferredSizeWidget {
     );
   }
 
+  //
+
   Icon getIcon(heigth, iconThemeData) {
     return Icon(
       iconThemeData,
@@ -187,7 +188,6 @@ class GlobalAppBar extends BaseStateless with PreferredSizeWidget {
     );
   }
 
-  //
   //
 
   Widget dotsButton(width) {

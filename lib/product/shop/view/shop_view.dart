@@ -1,9 +1,11 @@
+import 'package:car_app/product/home/view_model/category_viewmodel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/instance_manager.dart';
 
 import '../../../core/init/view/base/base_stateless.dart';
+import '../../home/service/category_service.dart';
 import '../../subcategory/view/subcategory_view.dart';
 
 class ShopView extends BaseStateless {
@@ -39,23 +41,42 @@ class CategoriesListViewBuilder extends BaseStateless {
 
   @override
   Widget build(BuildContext context) {
+    final CategoryViewmodel categoryViewModel = CategoryViewmodel();
     final double h = dynamicHeight(context: context, val: 1);
     final double w = dynamicWidth(context: context, val: 1);
-    return SizedBox(
-      height: h * 0.6,
-      child: ListView.separated(
-        physics: const ClampingScrollPhysics(),
-        separatorBuilder: (context, index) => SizedBox(width: w * 0.01),
-        itemCount: list.length,
-        itemBuilder: (context, index) {
-          return GestureDetector(
-            onTap: () {
-              Get.to(SubcategoryView(categoryModel: categoryModels[index]));
+
+    return FutureBuilder<List<CategoryModel>>(
+      future: categoryViewModel.getCategories(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if (snapshot.hasData) {
+          final List<CategoryModel> categoryList = snapshot.data;
+
+          return ListView.separated(
+            shrinkWrap: true,
+            physics: const ClampingScrollPhysics(),
+            separatorBuilder: (context, index) => SizedBox(width: w * 0.05),
+            itemCount: categoryList.length,
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                onTap: () {
+                  Get.to(
+                    SubcategoryView(categoryModel: categoryList[index]),
+                  );
+                },
+                child: CategoryCardWidget(categoryModel: categoryList[index]),
+              );
             },
-            child: list[index],
           );
-        },
-      ),
+        } else if (snapshot.hasError) {
+          return const Center(
+            child: Text("Error Occured"),
+          );
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
     );
   }
 }
@@ -83,7 +104,7 @@ class CategoryCardWidget extends BaseStateless {
             height: h * 0.30,
             width: w,
             child: Image.asset(
-              categoryModel.imageUrl,
+              "assets/img/a.png",
               fit: BoxFit.fill,
             ),
           ),
@@ -94,11 +115,11 @@ class CategoryCardWidget extends BaseStateless {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                categoryModel.subCategoryName,
+                categoryModel.vehicleTypeName ?? "null",
                 style: currentTheme(context).textTheme.headline5,
               ),
               Text(
-                categoryModel.amount,
+                categoryModel.makeName ?? "null",
                 style: currentTheme(context).textTheme.labelSmall,
               ),
             ],
@@ -137,53 +158,53 @@ class GeneralTextField extends BaseStateless {
   }
 }
 
-List<CategoryCardWidget> list = [
-  CategoryCardWidget(
-    categoryModel: categoryModels[0],
-  ),
-  CategoryCardWidget(
-    categoryModel: categoryModels[1],
-  ),
-  CategoryCardWidget(
-    categoryModel: categoryModels[2],
-  ),
-  CategoryCardWidget(
-    categoryModel: categoryModels[3],
-  ),
-];
+// List<CategoryCardWidget> list = [
+//   CategoryCardWidget(
+//     categoryModel: categoryModels[0],
+//   ),
+//   CategoryCardWidget(
+//     categoryModel: categoryModels[1],
+//   ),
+//   CategoryCardWidget(
+//     categoryModel: categoryModels[2],
+//   ),
+//   CategoryCardWidget(
+//     categoryModel: categoryModels[3],
+//   ),
+// ];
 
-class CategoryModel {
-  final String imageUrl;
-  final String amount;
-  final String subCategoryName;
-  final List categoryDatas;
-  CategoryModel({
-    required this.imageUrl,
-    required this.amount,
-    required this.subCategoryName,
-    this.categoryDatas = const [],
-  });
-}
+// class CategoryModel {
+//   final String imageUrl;
+//   final String amount;
+//   final String subCategoryName;
+//   final List categoryDatas;
+//   CategoryModel({
+//     required this.imageUrl,
+//     required this.amount,
+//     required this.subCategoryName,
+//     this.categoryDatas = const [],
+//   });
+// }
 
-List<CategoryModel> categoryModels = [
-  CategoryModel(
-    imageUrl: "assets/img/a.png",
-    amount: '23',
-    subCategoryName: 'Data1',
-  ),
-  CategoryModel(
-    imageUrl: "assets/img/img.png",
-    amount: '10',
-    subCategoryName: 'Data2',
-  ),
-  CategoryModel(
-    imageUrl: "assets/img/a.png",
-    amount: '4',
-    subCategoryName: 'Data3',
-  ),
-  CategoryModel(
-    imageUrl: "assets/img/a.png",
-    amount: '3',
-    subCategoryName: 'Data4',
-  ),
-];
+// List<CategoryModel> categoryModels = [
+//   CategoryModel(
+//     imageUrl: "assets/img/a.png",
+//     amount: '23',
+//     subCategoryName: 'Data1',
+//   ),
+//   CategoryModel(
+//     imageUrl: "assets/img/img.png",
+//     amount: '10',
+//     subCategoryName: 'Data2',
+//   ),
+//   CategoryModel(
+//     imageUrl: "assets/img/a.png",
+//     amount: '4',
+//     subCategoryName: 'Data3',
+//   ),
+//   CategoryModel(
+//     imageUrl: "assets/img/a.png",
+//     amount: '3',
+//     subCategoryName: 'Data4',
+//   ),
+// ];
