@@ -1,2 +1,2 @@
 const String getCategories =
-    "https://vpic.nhtsa.dot.gov/api/vehicles/GetVehicleTypesForMake/merc?format=json";
+    "https://5f210aa9daa42f001666535e.mockapi.io/api/categories";

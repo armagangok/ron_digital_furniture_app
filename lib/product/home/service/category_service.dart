@@ -25,8 +25,6 @@ class CategoryService extends BaseService {
       print(e);
       return categories;
     }
-
-    // print(response["Results"][0].runtimeType);
   }
 }
 

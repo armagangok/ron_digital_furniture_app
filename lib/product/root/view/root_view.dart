@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import '../../../core/init/view/base/base_stateless.dart';
 import '../../../feature/components/bottom_navy_bar_icon.dart';
 import '../../../feature/controllers/navybar_conteroller.dart';
-import '../../shop/view/shop_view.dart';
 import '../../home/view/home_view.dart';
 import '../../search/view/search_view.dart';
 
@@ -18,7 +17,7 @@ class RootView extends BaseStateless {
     List<Widget> pages = [
       HomeView(),
       SearchView(),
-      ShopView(),
+      const ShopView(),
       const Text("data4"),
       const Text("data5"),
     ];
@@ -28,5 +27,14 @@ class RootView extends BaseStateless {
       body: Obx(() => pages[controller.getIndex.value]),
       bottomNavigationBar: BottomNavyBar(),
     );
+  }
+}
+
+class ShopView extends StatelessWidget {
+  const ShopView({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold();
   }
 }

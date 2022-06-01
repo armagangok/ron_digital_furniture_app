@@ -5,7 +5,6 @@ class CategoryViewmodel {
 
   Future<List<CategoryModel>> getCategories() async {
     final a = await _service.fetchProducts();
-
     return a;
   }
 }

@@ -1,3 +1,4 @@
+import 'package:car_app/product/home/model/furniture_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/get_navigation.dart';
@@ -7,32 +8,50 @@ import 'package:star_rating/star_rating.dart';
 
 import '../../../core/init/view/base/base_stateless.dart';
 import '../../../feature/components/global_appbar.dart';
-import '../../../feature/components/sample_product_widget.dart';
 import '../controller/cart_controller.dart';
 
 class ProductDetailsView extends BaseStateless {
-  ProductDetailsView({Key? key}) : super();
+  ProductDetailsView({
+    required this.furniture,
+  }) : super();
+
+  final FurnitureModel furniture;
 
   CartController controller = Get.put(CartController());
 
   @override
   Widget build(BuildContext context) {
     double rating = 5;
-    // final double h = dynamicHeight(context: context, val: 1);
+    final double h = dynamicHeight(context: context, val: 1);
     final double w = dynamicWidth(context: context, val: 1);
+
+    List<Widget> widgets = [
+      SizedBox(
+        height: h * 0.4,
+        child: Image.network(
+          furniture.image,
+          fit: BoxFit.fill,
+        ),
+      ),
+      productName(context),
+      ratingButton(),
+      chooseProductNumber(w, controller),
+      productDetails(),
+      buyButton(),
+    ];
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: ProductDetailAppbar(),
-      body: ListView(
+      body: ListView.separated(
+        itemCount: widgets.length,
         physics: const ClampingScrollPhysics(),
-        children: [
-          SampleProductWidget(),
-          productName(context),
-          ratingButton(),
-          chooseProductNumber(w, controller),
-          productDetails(),
-          buyButton(),
-        ],
+        itemBuilder: (context, index) => (index == 0)
+            ? widgets[index]
+            : Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: widgets[index],
+              ),
+        separatorBuilder: (context, index) => SizedBox(height: h * 0.01),
       ),
     );
   }
@@ -58,21 +77,24 @@ class ProductDetailsView extends BaseStateless {
 
   Column productDetails() {
     return Column(
-      children: const [
-        Text("Some Product Details Text"),
-        Text("Some Product Details Text"),
-        Text("Some Product Details Text"),
-        Text("Some Product Details Text"),
+      children: [
+        Text(furniture.description),
+        Text(furniture.subTitle),
       ],
     );
   }
 
   //
 
-  Text productName(BuildContext context) {
-    return Text(
-      "Some Product Name Here",
-      style: currentTextTheme(context).headline5,
+  Widget productName(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          furniture.title,
+          style: currentTextTheme(context).headline5,
+        ),
+        Text(furniture.title),
+      ],
     );
   }
 
@@ -91,7 +113,7 @@ class ProductDetailsView extends BaseStateless {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Text("\$237"),
+        Text("\$${furniture.price}"),
         SizedBox(
           width: w * 0.3,
           child: Row(

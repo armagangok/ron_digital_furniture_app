@@ -1,5 +1,6 @@
-import 'package:car_app/product/home/view/home_view.dart';
-import 'package:car_app/product/home/view_model/category_viewmodel.dart';
+import 'package:car_app/feature/search/search.dart';
+import 'package:car_app/product/home/model/furniture_model.dart';
+import 'package:car_app/product/home/view_model/furniture_viewmodel.dart';
 import 'package:car_app/product/root/view/root_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,25 +17,52 @@ class MyApp extends StatelessWidget {
       title: 'Template App',
       debugShowCheckedModeBanner: false,
       theme: appTheme,
-      home:  RootView(),
+      home: RootView(),
     );
   }
 }
 
-// class TestView extends StatelessWidget {
-//   const TestView({Key? key}) : super(key: key);
+class TestView extends StatefulWidget {
+  const TestView({Key? key}) : super(key: key);
 
-//   @override
-//   Widget build(BuildContext context) {
-//     CategoryViewmodel vmodel = CategoryViewmodel();
-//     return Scaffold(
-//       appBar: AppBar(),
-//       body: Center(
-//         child: ElevatedButton(
-//           onPressed: () async {},
-//           child: const Text("Press"),
-//         ),
-//       ),
-//     );
-//   }
-// }
+  @override
+  State<TestView> createState() => _TestViewState();
+}
+
+class _TestViewState extends State<TestView> {
+  List<FurnitureModel> furnitureModels = [];
+  @override
+  void initState() {
+    FurnitureViewmodel furniture = FurnitureViewmodel();
+    furniture.getData().then((value) => furnitureModels = value);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final List<String> allFurnitureNames = [];
+
+    return Scaffold(
+      appBar: AppBar(),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () async {
+            for (var furnitureModel in furnitureModels) {
+              allFurnitureNames.add(furnitureModel.title);
+            }
+
+            final String selectedFurniture = await showSearch(
+              context: context,
+              delegate: CustomSearchDelegate(
+                furnitureModels:furnitureModels,
+                allFurnitures: allFurnitureNames,
+                suggestions: allFurnitureNames,
+              ),
+            );
+          },
+          child: const Text("Press"),
+        ),
+      ),
+    );
+  }
+}
