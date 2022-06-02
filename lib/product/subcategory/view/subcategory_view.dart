@@ -1,66 +1,77 @@
-// ignore_for_file: avoid_print
-
+import 'package:car_app/product/home/controller/furniture_viewmodel.dart';
+import 'package:car_app/product/subcategory/controller/search_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/init/view/base/base_stateless.dart';
+import '../../../feature/components/general_textfield.dart';
 import '../../../feature/components/global_appbar.dart';
-import '../../../feature/components/global_textfield.dart';
-import '../../home/controller/furniture_viewmodel.dart';
 import '../../home/model/furniture_model.dart';
-
 import '../../product/view/product_details_view.dart';
 
-class SubcategoryView extends BaseStateless {
-  SubcategoryView({
-    required this.categoryName,
-  }) : super();
+class SubcategoryView extends StatefulWidget {
+  const SubcategoryView({Key? key}) : super();
 
-  final String categoryName;
+  @override
+  State<SubcategoryView> createState() => _SubcategoryViewState();
+}
+
+class _SubcategoryViewState extends State<SubcategoryView> {
+  final FurnitureViewmodel _furnitureViewmodel = FurnitureViewmodel();
+  List<FurnitureModel> allFurnitures = [];
+
+  @override
+  void initState() {
+    _furnitureViewmodel
+        .getFurniture()
+        .then((fetchedFurnitures) => allFurnitures = fetchedFurnitures);
+    super.initState();
+  }
+
+  final TextEditingController textController = TextEditingController();
+  final SearchController controller = SearchController();
 
   @override
   Widget build(BuildContext context) {
-    FurnitureViewmodel furnitureViewmodel = FurnitureViewmodel();
     return Scaffold(
       appBar: GlobalAppBar(),
-      body: Column(
-        children: [
-          GeneralTextField(),
-          FutureBuilder(
-            future: furnitureViewmodel.getData(),
-            builder: (context, AsyncSnapshot<List<FurnitureModel>> snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                print(snapshot.data![0].description);
-                return GridView.builder(
-                  padding: const EdgeInsets.all(2),
-                  itemCount: snapshot.data!.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 10,
-                    crossAxisSpacing: 10,
-                    childAspectRatio: 1,
-                  ),
-                  itemBuilder: (context, index) {
-                    return ProductWidget(furniture: snapshot.data![index]);
-                  },
-                );
-              } else if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else {
-                return const Center(child: Text("Error Occured!"));
-              }
-            },
-          ),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 4),
+        child: Column(
+          children: [
+            GeneralTextField(
+              controller: textController,
+              onChanged: (value) => controller.updateList(allFurnitures, value),
+            ),
+            Expanded(
+              child: Obx(
+                () {
+                  var displayList = controller.getDisplayList.value;
+                  return GridView.builder(
+                    padding: const EdgeInsets.all(2),
+                    itemCount: displayList.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                      childAspectRatio: 1,
+                    ),
+                    itemBuilder: (context, index) =>
+                        ProductWidget(furniture: displayList[index]),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
 class ProductWidget extends BaseStateless {
-  FurnitureModel furniture;
+  final FurnitureModel furniture;
   ProductWidget({
     Key? key,
     required this.furniture,
@@ -68,15 +79,10 @@ class ProductWidget extends BaseStateless {
 
   @override
   Widget build(BuildContext context) {
-    print(furniture.category);
-    print(furniture.description);
-    print(furniture.id);
     final double h = dynamicHeight(context: context, val: 1);
     // final double w = dynamicWidth(context: context, val: 1);
     return GestureDetector(
-      onTap: () => Get.to(() => ProductDetailsView(
-            furniture: furniture,
-          )),
+      onTap: () => Get.to(() => ProductDetailsView(furniture: furniture)),
       child: Column(children: [
         SizedBox(
           height: h * 0.2,

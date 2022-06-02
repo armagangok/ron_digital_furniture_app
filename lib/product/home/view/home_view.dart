@@ -1,5 +1,4 @@
-import 'package:car_app/product/home/model/furniture_model.dart';
-import 'package:car_app/product/product/view/product_details_view.dart';
+import 'package:car_app/product/subcategory/view/subcategory_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,10 +7,10 @@ import './components/product_widget.dart';
 import '../../../core/init/view/base/base_stateless.dart';
 import '../../../feature/components/global_appbar.dart';
 import '../../../feature/components/sample_product_widget.dart';
-import '../../../feature/search/search.dart';
 import '../controller/furniture_category_viewmodel.dart';
 import '../controller/furniture_viewmodel.dart';
 import '../model/furniture_category_model.dart';
+import '../model/furniture_model.dart';
 
 class HomeView extends BaseStateless {
   HomeView({Key? key}) : super();
@@ -102,7 +101,7 @@ class _CategoriesListViewBuilderState extends State<CategoriesListViewBuilder> {
   @override
   void initState() {
     FurnitureViewmodel furnitureViewmodel = FurnitureViewmodel();
-    furnitureViewmodel.getData().then((List<FurnitureModel> models) {
+    furnitureViewmodel.getFurniture().then((List<FurnitureModel> models) {
       furnitureModels = models;
       for (var element in models) {
         allFurnitureNames.add(element.title);
@@ -121,7 +120,6 @@ class _CategoriesListViewBuilderState extends State<CategoriesListViewBuilder> {
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           final List<FurnitureCategoryModel> categoryList = snapshot.data;
-
           return ListView.separated(
             shrinkWrap: true,
             physics: const ClampingScrollPhysics(),
@@ -130,20 +128,7 @@ class _CategoriesListViewBuilderState extends State<CategoriesListViewBuilder> {
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () async {
-                  final String a = await showSearch(
-                    context: context,
-                    delegate: CustomSearchDelegate(
-                      allFurnitures: allFurnitureNames,
-                      suggestions: allFurnitureNames,
-                      furnitureModels: furnitureModels,
-                    ),
-                  );
-
-                  for (var element in furnitureModels) {
-                    if (element.title == a) {
-                      Get.to(ProductDetailsView(furniture: element));
-                    }
-                  }
+                  Get.to(() => const SubcategoryView());
                 },
                 child: CategoryCardWidget(categoryModel: categoryList[index]),
               );

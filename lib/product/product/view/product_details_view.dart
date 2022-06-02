@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/instance_manager.dart';
-import 'package:star_rating/star_rating.dart';
 
 import '../../../core/init/view/base/base_stateless.dart';
 import '../../../feature/components/global_appbar.dart';
+import '../../../raiting_widget.dart';
 import '../controller/cart_controller.dart';
 
 class ProductDetailsView extends BaseStateless {
@@ -21,7 +21,6 @@ class ProductDetailsView extends BaseStateless {
 
   @override
   Widget build(BuildContext context) {
-    double rating = 5;
     final double h = dynamicHeight(context: context, val: 1);
     final double w = dynamicWidth(context: context, val: 1);
 
@@ -34,7 +33,10 @@ class ProductDetailsView extends BaseStateless {
         ),
       ),
       productName(context),
-      ratingButton(),
+      const RatingWidget(
+        color: Colors.amber,
+        filledColor: Colors.amber,
+      ),
       chooseProductNumber(w, controller),
       productDetails(),
       buyButton(),
@@ -60,16 +62,6 @@ class ProductDetailsView extends BaseStateless {
     return ElevatedButton(
       onPressed: () {},
       child: const Text("Buy"),
-    );
-  }
-
-  StarRating ratingButton() {
-    return StarRating(
-      rating: 5,
-      length: 5,
-      onRaitingTap: (val) {
-        print(val);
-      },
     );
   }
 
@@ -166,7 +158,6 @@ class ProductDetailAppbar extends BaseStateless with PreferredSizeWidget {
       leading: getBackButton(heigth),
       actions: [
         searchButton(heigth),
-
         dotsButton(heigth),
         // myProfileText(),
       ],
@@ -227,51 +218,3 @@ class ProductDetailAppbar extends BaseStateless with PreferredSizeWidget {
   @override
   Size get preferredSize => const Size(double.infinity, 76);
 }
-
-// typedef RatingChangeCallback = void Function(double rating);
-
-// class StarRating extends StatelessWidget {
-//   final int starCount;
-//   final double rating;
-//   final RatingChangeCallback? onRatingChanged;
-//   final Color? color;
-//   const StarRating({
-//     Key? key,
-//     this.starCount = 5,
-//     this.rating = 0,
-//     required this.onRatingChanged,
-//     required this.color,
-//   }) : super(key: key);
-
-//   Widget buildStar(BuildContext context, int index) {
-//     Icon icon;
-//     if (index >= rating) {
-//       icon = const Icon(
-//         Icons.star_border,
-//         color: Colors.yellow,
-//       );
-//     } else if (index > rating - 1 && index < rating) {
-//       icon = Icon(
-//         Icons.star_half,
-//         color: color,
-//       );
-//     } else {
-//       icon = Icon(
-//         Icons.star,
-//         color: color ?? Theme.of(context).primaryColor,
-//       );
-//     }
-//     return InkResponse(
-//       onTap:
-//           onRatingChanged == null ? null : () => onRatingChanged!(index + 1.0),
-//       child: icon,
-//     );
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Row(
-//         children:
-//             List.generate(starCount, (index) => buildStar(context, index)));
-//   }
-// }

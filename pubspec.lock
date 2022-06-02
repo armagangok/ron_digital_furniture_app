@@ -282,13 +282,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.10.0"
-  star_rating:
-    dependency: "direct main"
-    description:
-      name: star_rating
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.10.0"
   stream_channel:
     dependency: transitive
     description:

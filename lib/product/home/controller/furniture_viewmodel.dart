@@ -5,7 +5,7 @@ import '../model/furniture_model.dart';
 class FurnitureViewmodel {
   final FurnitureService _furnitureService = FurnitureService();
 
-  Future<List<FurnitureModel>> getData() async {
+  Future<List<FurnitureModel>> getFurniture() async {
     return await _furnitureService.fetchCategories();
   }
 }

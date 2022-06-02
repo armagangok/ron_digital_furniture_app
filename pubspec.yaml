@@ -40,7 +40,7 @@ dependencies:
   get: ^4.6.5
   get_storage: ^2.0.3
   easy_cli: ^0.2.3
-  star_rating: ^0.10.0
+
   
 
 

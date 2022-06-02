@@ -42,7 +42,14 @@ import 'package:flutter/material.dart';
 import '../../core/init/view/base/base_stateless.dart';
 
 class GeneralTextField extends BaseStateless {
-  GeneralTextField({Key? key}) : super();
+  void Function(String)? onChanged;
+
+  GeneralTextField({
+    required this.onChanged,
+    required this.controller,
+  }) : super();
+
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +57,11 @@ class GeneralTextField extends BaseStateless {
     return SizedBox(
       height: h * 0.05,
       child: TextField(
+        // textAlign: TextAlign.center,
+        onChanged: onChanged,
+        controller: controller,
         decoration: InputDecoration(
+          contentPadding: EdgeInsets.zero,
           hintText: "Search",
           filled: true,
           fillColor: const Color(0xff767680).withOpacity(0.12),
