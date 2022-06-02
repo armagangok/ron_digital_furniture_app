@@ -1,11 +1,12 @@
 import 'package:car_app/feature/search/search.dart';
 import 'package:car_app/product/home/model/furniture_model.dart';
-import 'package:car_app/product/home/view_model/furniture_viewmodel.dart';
+
 import 'package:car_app/product/root/view/root_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import './core/init/view/theme/theme.dart';
+import 'product/home/controller/furniture_viewmodel.dart';
 
 void main() => runApp(const MyApp());
 

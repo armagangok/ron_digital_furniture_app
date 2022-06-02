@@ -6,8 +6,9 @@ import 'package:get/get.dart';
 import '../../../core/init/view/base/base_stateless.dart';
 import '../../../feature/components/global_appbar.dart';
 import '../../../feature/components/global_textfield.dart';
+import '../../home/controller/furniture_viewmodel.dart';
 import '../../home/model/furniture_model.dart';
-import '../../home/view_model/furniture_viewmodel.dart';
+
 import '../../product/view/product_details_view.dart';
 
 class SubcategoryView extends BaseStateless {

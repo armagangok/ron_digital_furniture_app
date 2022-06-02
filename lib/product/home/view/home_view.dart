@@ -1,5 +1,4 @@
 import 'package:car_app/product/home/model/furniture_model.dart';
-import 'package:car_app/product/home/view_model/furniture_viewmodel.dart';
 import 'package:car_app/product/product/view/product_details_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,8 +9,9 @@ import '../../../core/init/view/base/base_stateless.dart';
 import '../../../feature/components/global_appbar.dart';
 import '../../../feature/components/sample_product_widget.dart';
 import '../../../feature/search/search.dart';
+import '../controller/furniture_category_viewmodel.dart';
+import '../controller/furniture_viewmodel.dart';
 import '../model/furniture_category_model.dart';
-import '../view_model/furniture_category_viewmodel.dart';
 
 class HomeView extends BaseStateless {
   HomeView({Key? key}) : super();
@@ -104,7 +104,6 @@ class _CategoriesListViewBuilderState extends State<CategoriesListViewBuilder> {
     FurnitureViewmodel furnitureViewmodel = FurnitureViewmodel();
     furnitureViewmodel.getData().then((List<FurnitureModel> models) {
       furnitureModels = models;
-      print(furnitureModels);
       for (var element in models) {
         allFurnitureNames.add(element.title);
       }
