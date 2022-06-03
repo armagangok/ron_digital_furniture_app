@@ -38,7 +38,7 @@ class LoginScreen extends StatelessWidget {
                   ElevatedButton(
                     child: const Text("Login"),
                     onPressed: () async {
-                      // await rememberMeDialog(context);
+                      // var a = await rememberMeDialog(context);
                       await keepMeloggedInDialog(context);
                     },
                   ),
@@ -78,8 +78,7 @@ class LoginScreen extends StatelessWidget {
                             password: textController.getPasswordController.text,
                           ),
                         );
-
-                        Get.back();
+                        Get.to(RootView());
                       },
                       child: const Text("Yes"),
                     ),

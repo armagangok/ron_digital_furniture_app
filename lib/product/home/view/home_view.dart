@@ -1,12 +1,12 @@
-import 'package:car_app/product/subcategory/view/subcategory_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import './components/category_card_widget.dart';
-import './components/product_widget.dart';
 import '../../../core/init/view/base/base_stateless.dart';
+import '../../../feature/components/carousel_widget.dart';
 import '../../../feature/components/global_appbar.dart';
-import '../../../feature/components/sample_product_widget.dart';
+import '../../../feature/components/product_widget.dart';
+import '../../subcategory/view/subcategory_view.dart';
 import '../controller/furniture_category_viewmodel.dart';
 import '../controller/furniture_viewmodel.dart';
 import '../model/furniture_category_model.dart';
@@ -35,7 +35,6 @@ class HomeView extends BaseStateless {
   }
 
   //
-  //
 
   List<Widget> getWidgets(context, h) {
     final FurnitureCategoryViewmodel categoryViewmodel =
@@ -43,7 +42,7 @@ class HomeView extends BaseStateless {
     List<Widget> b = [
       Stack(
         children: [
-          SampleProductWidget(),
+          CarouselWidget(),
           GlobalAppBar(),
         ],
       ),
@@ -60,8 +59,17 @@ class HomeView extends BaseStateless {
               height: h * 0.32,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) =>
-                    ProductWidget1(furniture: snapshot.data![index]),
+                itemBuilder: (context, index) {
+                  var product = snapshot.data![index];
+                  return InkWell(
+                    // onTap: () => Get.to(ProductDetailsView(furniture: ,)),
+                    child: ProductWidget(
+                      title: product.title,
+                      image: product.image,
+                      numOfProducts: "${product.numOfProducts}",
+                    ),
+                  );
+                },
                 separatorBuilder: (context, index) => SizedBox(width: h * 0.04),
                 itemCount: snapshot.data!.length,
               ),
@@ -86,6 +94,8 @@ class HomeView extends BaseStateless {
   }
 }
 
+//
+//
 class CategoriesListViewBuilder extends StatefulWidget {
   const CategoriesListViewBuilder({Key? key}) : super();
 

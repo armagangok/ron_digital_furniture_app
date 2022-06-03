@@ -1,13 +1,11 @@
-import 'package:car_app/product/home/model/furniture_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/instance_manager.dart';
 
 import '../../../core/init/view/base/base_stateless.dart';
 import '../../../feature/components/global_appbar.dart';
-import '../../../raiting_widget.dart';
+import '../../../feature/components/raiting_widget.dart';
+import '../../home/model/furniture_model.dart';
 import '../controller/cart_controller.dart';
 
 class ProductDetailsView extends BaseStateless {
@@ -42,8 +40,7 @@ class ProductDetailsView extends BaseStateless {
       buyButton(),
     ];
     return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: ProductDetailAppbar(),
+      appBar: GlobalAppBar(),
       body: ListView.separated(
         itemCount: widgets.length,
         physics: const ClampingScrollPhysics(),
@@ -142,79 +139,4 @@ class ProductDetailsView extends BaseStateless {
       ],
     );
   }
-}
-
-///
-///
-
-class ProductDetailAppbar extends BaseStateless with PreferredSizeWidget {
-  ProductDetailAppbar({Key? key}) : super();
-
-  @override
-  Widget build(BuildContext context) {
-    final double heigth = dynamicHeight(context: context, val: 1);
-    // final double width = dynamicWidth(context: context, val: 1);
-    return AppBar(
-      leading: getBackButton(heigth),
-      actions: [
-        searchButton(heigth),
-        dotsButton(heigth),
-        // myProfileText(),
-      ],
-    );
-  }
-
-  //
-
-  Widget getBackButton(heigth) {
-    return CircleAvatarWidget(
-      icon: IconButton(
-        onPressed: () => Get.back(),
-        icon: getIcon(
-          heigth,
-          CupertinoIcons.xmark,
-        ),
-      ),
-    );
-  }
-
-//
-
-  Widget searchButton(heigth) {
-    return CircleAvatarWidget(
-      icon: Center(
-        child: IconButton(
-          onPressed: () {},
-          icon: getIcon(heigth, CupertinoIcons.share),
-        ),
-      ),
-    );
-  }
-
-  //
-
-  Icon getIcon(heigth, iconThemeData) {
-    return Icon(
-      iconThemeData,
-      color: Colors.black,
-      size: heigth * 0.044,
-    );
-  }
-
-  //
-
-  Widget dotsButton(width) {
-    return CircleAvatarWidget(
-      icon: IconButton(
-        onPressed: () {},
-        icon: const Icon(
-          CupertinoIcons.heart,
-          color: Colors.black,
-        ),
-      ),
-    );
-  }
-
-  @override
-  Size get preferredSize => const Size(double.infinity, 76);
 }

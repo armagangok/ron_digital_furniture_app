@@ -1,7 +1,8 @@
-import 'package:car_app/feature/controllers/preference_controller.dart';
-import 'package:car_app/product/auth/view/login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../feature/controllers/preference_controller.dart';
+import '../auth/view/login.dart';
 
 class ProfileView extends StatelessWidget {
   ProfileView({Key? key}) : super(key: key);
