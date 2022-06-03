@@ -5,6 +5,7 @@ import '../../../core/init/view/base/base_stateless.dart';
 import '../../../feature/components/bottom_navy_bar_icon.dart';
 import '../../../feature/controllers/navybar_conteroller.dart';
 import '../../home/view/home_view.dart';
+import '../../profile/profile_view.dart';
 import '../../search/view/search_view.dart';
 
 class RootView extends BaseStateless {
@@ -19,7 +20,7 @@ class RootView extends BaseStateless {
       SearchView(),
       const ShopView(),
       const Text("data4"),
-      const Text("data5"),
+      ProfileView(),
     ];
 
     return Scaffold(
@@ -35,6 +36,10 @@ class ShopView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Shop"),
+      ),
+    );
   }
 }

@@ -1,20 +1,36 @@
+import 'package:car_app/feature/controllers/preference_controller.dart';
+import 'package:car_app/product/auth/view/login.dart';
 import 'package:car_app/product/root/view/root_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import './core/init/view/theme/theme.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
+
+  final PreferenceController _controller = PreferenceController();
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Template App',
       debugShowCheckedModeBanner: false,
       theme: appTheme,
-      home: RootView(),
+      home: FutureBuilder<bool?>(
+        future: _controller.checkLoginStatus(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return (snapshot.data == true) ? RootView() : LoginScreen();
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
+      ),
     );
   }
 }

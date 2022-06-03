@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
 class BottomNavyBar extends BaseStateless {
   BottomNavyBar({Key? key}) : super();
 
@@ -15,9 +14,7 @@ class BottomNavyBar extends BaseStateless {
       () => BottomNavigationBar(
         currentIndex: controller.getIndex.value,
         backgroundColor: Colors.white,
-        onTap: (int index) {
-          controller.updateIndex(index);
-        },
+        onTap: (int index) => controller.updateIndex(index),
         fixedColor: Colors.black,
         unselectedItemColor: Colors.black,
         items: const [
