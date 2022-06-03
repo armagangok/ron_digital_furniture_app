@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/init/view/base/base_stateless.dart';
-import '../../../feature/components/bottom_navy_bar_icon.dart';
-import '../../../feature/controllers/navybar_controller.dart';
+import '../components/bottom_navy_bar_icon.dart';
+import '../controller/navybar_controller.dart';
 import '../../home/view/home_view.dart';
 import '../../profile/profile_view.dart';
 import '../../search/view/search_view.dart';

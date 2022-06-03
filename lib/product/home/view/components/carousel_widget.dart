@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../../core/init/view/base/base_stateless.dart';
-import '../controllers/indicator_controller.dart';
+import '../../../../core/init/view/base/base_stateless.dart';
+import '../controller/indicator_controller.dart';
 
 class CarouselWidget extends BaseStateless {
   CarouselWidget({Key? key}) : super();

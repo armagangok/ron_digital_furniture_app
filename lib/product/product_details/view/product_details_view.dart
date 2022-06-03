@@ -4,7 +4,7 @@ import 'package:get/instance_manager.dart';
 
 import '../../../core/init/view/base/base_stateless.dart';
 import '../../../feature/components/global_appbar.dart';
-import '../../../feature/components/raiting_widget.dart';
+import 'components/raiting_widget.dart';
 import '../../home/model/furniture_model.dart';
 import '../controller/cart_controller.dart';
 

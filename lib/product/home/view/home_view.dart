@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import './components/category_card_widget.dart';
 import '../../../core/init/view/base/base_stateless.dart';
-import '../../../feature/components/carousel_widget.dart';
+import 'components/carousel_widget.dart';
 import '../../../feature/components/global_appbar.dart';
 import '../../../feature/components/product_widget.dart';
 import '../../subcategory/view/subcategory_view.dart';
